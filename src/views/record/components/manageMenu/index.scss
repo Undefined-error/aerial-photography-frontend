@@ -1,0 +1,404 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// 根容器样式
+.main_container {
+    width: 100%;
+    height: calc(100vh - 64px);
+    background-color: #ecf1fb;
+    overflow: auto;
+
+    .record_bg {
+        width: 480px;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .top_content {
+        height: 34px;
+        background-color: #ffffff;
+        margin: 0 12px 12px;
+        border-radius: 4px;
+    }
+
+    .mainBox {
+        display: grid;
+        grid-template-columns: minmax(260px, 320px) 1fr;
+        gap: 20px;
+        padding: 0 12px;
+        padding-top: 20px;
+        padding-bottom: 30px;
+        height: 100%;
+    }
+
+    // 左侧内容区样式
+    .left_content {
+        background-color: #ffffff;
+        border-radius: 4px;
+        padding: 10px;
+        height: calc(100vh - 100px);
+        display: flex;
+        flex-direction: column;
+
+        .left_content_header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            height: 40px;
+            flex-shrink: 0;
+
+            .left_content_header_title {
+                font-size: 18px;
+                font-weight: 600;
+                color: #333333;
+            }
+
+            .left_content_header_icon {
+                display: flex;
+                gap: 12px;
+
+                img {
+                    width: 18px;
+                    height: 18px;
+                    cursor: pointer;
+                    object-fit: contain;
+                }
+            }
+        }
+
+        .left_content_item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+            padding-right: 4px;
+            cursor: pointer;
+
+            &::-webkit-scrollbar {
+                width: 0;
+                height: 0;
+            }
+
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+    }
+
+    // 右侧内容区样式（优化响应式）
+    .right_content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .right_content_header {
+            height: 40px;
+            /* 使用视口高度单位，随窗口缩放 */
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3vh;
+            margin-bottom: 4vh;
+
+            .searchInput {
+                width: 240px;
+                height: 40px;
+                font-weight: normal;
+                font-size: 14px;
+
+                :deep(.el-input__wrapper) {
+                    box-shadow: none
+                }
+            }
+        }
+
+        .right_content_bord {
+            background-color: #ffffff;
+            border-radius: 4px;
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+
+            .right_content_bord_fnArea {
+                height: 50px;
+                margin-bottom: 16px;
+                border-radius: 6px;
+                padding: 0 12px;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+
+                button {
+                    box-shadow: 2px 2px 6px 0px rgba(55, 135, 255, 0.384);
+                    background-color: rgba(55, 136, 255, 1);
+                    border-radius: 4px;
+                    padding: 0 12px;
+                    height: 30px;
+                    border: none;
+
+                    span {
+                        margin-left: 6px;
+                        color: white;
+                        font-weight: normal;
+                    }
+                }
+
+                .fn_more {
+                    margin-left: 14px;
+                    color: #5395f7c9;
+                    font-size: 22px;
+                    cursor: pointer;
+                }
+            }
+
+            .right_content_bord_pages {
+                height: 100px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .pagination-placeholder {
+                    color: #666;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+.active {
+    background-color: #f4f8ff; // 浅蓝色背景表示选中
+    border: 1px solid #a0c6ff; // 左侧高亮边框
+}
+
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 16px;
+
+    .title {
+        font-weight: bold;
+        font-size: 18px;
+        color: black;
+    }
+}
+
+.ipt {
+    width: 100%;
+    height: 44px;
+    font-size: 16px;
+    transform: translateY(-4px);
+}
+
+/* 取消 label 加粗 */
+:deep(.el-form-item__label) {
+    font-weight: normal !important;
+    /* 覆盖默认加粗样式 */
+    color: #999;
+    /* 可选：调整颜色更贴近普通文本 */
+    font-size: 17px;
+}
+
+/* 修复必填项星号的位置和样式（可选） */
+:deep(.el-form-item__label .el-form-item__label__asterisk) {
+    color: #F56C6C;
+    /* 保持星号为红色 */
+    margin-right: 4px;
+}
+
+.mainContent {
+    background-color: white;
+    padding: 40px 20px;
+    text-align: center;
+
+    .base {
+        width: 160px;
+        padding: 24px 0;
+        border: 1px solid #0095FF;
+        margin-top: 34px;
+        font-size: 18px;
+        font-weight: normal;
+    }
+
+    .cancel {
+        color: #0095FF;
+        margin-right: 14px;
+    }
+
+    .submit {
+        background: linear-gradient(to right, #3769FF, #37B2FF);
+        color: white;
+        margin-left: 14px;
+    }
+}
+
+.aiStyle {
+    padding: 40px 20px;
+    padding-top: 0;
+
+    img {
+        margin: 0 auto;
+        width: 320px;
+        margin-bottom: 6px;
+    }
+}
+
+.custom-upload {
+    display: flex;
+    align-items: center;
+
+    .btn {
+        padding: 0 12px;
+        border: 0;
+        font-weight: 300;
+
+    }
+}
+
+.custom-tip {
+    margin-left: 8px;
+    color: #999;
+    /* 可根据需求调整提示文字颜色 */
+    font-size: 14px;
+    /* 可根据需求调整字体大小 */
+}
+
+.custom-close {
+    cursor: pointer;
+}
+
+:deep(.form2 .el-form-item__label) {
+    padding-right: 24px;
+}
+
+:deep(.el-form-item:not(:last-child)) {
+    margin-bottom: 20px;
+}
+
+
+// 左侧组件
+.rename-input {
+    width: 180px;
+    margin-left: 4px;
+    vertical-align: middle;
+}
+
+.leftBox {
+    border: 1px solid #ebebeb94;
+    padding: 0 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+
+    .leftBox_head {
+        display: flex;
+        align-items: center;
+
+        .leftBox_head_title {
+            font-weight: bold;
+            margin-left: 4px;
+        }
+    }
+
+    .leftBox_footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #666666;
+        font-size: 12px;
+        margin-top: 4px;
+        padding: 10px 0;
+
+        .leftBox_footer_left {
+            display: flex;
+            align-items: center;
+
+            .icon {
+                font-size: 16px;
+            }
+
+            span {
+                margin-left: 4px;
+            }
+        }
+
+        .leftBox_footer_right {
+            img {
+                width: 18px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.fixTips {
+    font-size: 12px;
+    color: #999;
+    margin-left: 8px;
+}
+
+//   右侧表格
+.name-edit-input {
+    width: 180px;
+    margin: -4px 0;
+}
+
+.action {
+    display: flex;
+    justify-content: space-between;
+    color: #3788ff;
+    cursor: pointer;
+
+    span:hover {
+        text-decoration: underline;
+    }
+}
+
+.rename-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 70px;
+
+    .save {
+        color: #18e054;
+    }
+
+    .cancel {
+        color: #ff4d4f;
+    }
+}
+
+.status {
+    width: 60px;
+    display: flex;
+    justify-content: space-between;
+    color: #18e054;
+}
+
+.graySty {
+    color: #B3C2D8;
+}
+
+:deep(.active-row) {
+    background-color: #f4f8ff !important;
+    border: 1px solid #a0c6ff;
+
+    td {
+        border-bottom: 1px solid #a0c6ff !important;
+    }
+}
